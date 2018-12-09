@@ -16,6 +16,11 @@ class Player:
     def learn(self, my_move, their_move):
         pass
 
+import random
+
+class RandomPlayer(Player):
+    def move(self):
+        return random.choice(moves)
 
 def beats(one, two):
     return ((one == 'rock' and two == 'scissors') or

@@ -22,6 +22,13 @@ class RandomPlayer(Player):
     def move(self):
         return random.choice(moves)
 
+class HumanPlayer(Player):
+    def move(self):
+        result = None
+        while result not in moves:
+            result = str.strip(str.lower(input(f"Enter your move ({moves}): ")))
+        return result
+
 def beats(one, two):
     return ((one == 'rock' and two == 'scissors') or
             (one == 'scissors' and two == 'paper') or
@@ -61,5 +68,5 @@ class Game:
 
 
 if __name__ == '__main__':
-    game = Game(RandomPlayer(), RandomPlayer())
+    game = Game(RandomPlayer(), HumanPlayer())
     game.play_game()

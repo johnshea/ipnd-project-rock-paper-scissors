@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import random
+
 """This program plays a game of Rock, Paper, Scissors between two Players,
 and reports both Player's scores each round."""
 
@@ -16,38 +18,41 @@ class Player:
     def learn(self, my_move, their_move):
         pass
 
-import random
 
 class RandomPlayer(Player):
     def move(self):
         return random.choice(moves)
 
+
 class HumanPlayer(Player):
     def move(self):
         result = None
         while result not in moves:
-            result = str.strip(str.lower(input(f"Enter your move ({moves}): ")))
+            result = str.lower(input(f"Enter your move ({moves}): "))
+            result = str.strip(result)
         return result
+
 
 class ReflectPlayer(Player):
     def __init__(self):
         self.opponent_last_move = None
 
     def move(self):
-        if self.opponent_last_move == None:
-          return moves[0]
+        if self.opponent_last_move is None:
+            return moves[0]
         else:
-          return self.opponent_last_move
+            return self.opponent_last_move
 
     def learn(self, my_move, their_move):
         self.opponent_last_move = their_move
+
 
 class CyclePlayer(Player):
     def __init__(self):
         self.my_last_move = None
 
     def move(self):
-        if self.my_last_move == None:
+        if self.my_last_move is None:
             index = 0
         else:
             index = moves.index(self.my_last_move)
@@ -56,6 +61,7 @@ class CyclePlayer(Player):
         self.my_last_move = moves[index]
 
         return self.my_last_move
+
 
 def beats(one, two):
     return ((one == 'rock' and two == 'scissors') or
@@ -92,7 +98,8 @@ class Game:
         print(f"{winner} this round!")
 
     def displayFinalMessage(self):
-        print(f"\nFinal Score: Opponent: {self.p1_score}  You: {self.p2_score}")
+        print(f"\nFinal Score: Opponent: {self.p1_score} " +
+              f"You: {self.p2_score}")
         winner = ""
         if self.p1_score > self.p2_score:
             winner = "Your opponent won"

@@ -42,6 +42,21 @@ class ReflectPlayer(Player):
     def learn(self, my_move, their_move):
         self.opponent_last_move = their_move
 
+class CyclePlayer(Player):
+    def __init__(self):
+        self.my_last_move = None
+
+    def move(self):
+        if self.my_last_move == None:
+            index = 0
+        else:
+            index = moves.index(self.my_last_move)
+            index = (index + 1) % len(moves)
+
+        self.my_last_move = moves[index]
+
+        return self.my_last_move
+
 def beats(one, two):
     return ((one == 'rock' and two == 'scissors') or
             (one == 'scissors' and two == 'paper') or
@@ -81,5 +96,5 @@ class Game:
 
 
 if __name__ == '__main__':
-    game = Game(ReflectPlayer(), HumanPlayer())
+    game = Game(CyclePlayer(), HumanPlayer())
     game.play_game()

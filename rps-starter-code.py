@@ -29,6 +29,19 @@ class HumanPlayer(Player):
             result = str.strip(str.lower(input(f"Enter your move ({moves}): ")))
         return result
 
+class ReflectPlayer(Player):
+    def __init__(self):
+        self.opponent_last_move = None
+
+    def move(self):
+        if self.opponent_last_move == None:
+          return moves[0]
+        else:
+          return self.opponent_last_move
+
+    def learn(self, my_move, their_move):
+        self.opponent_last_move = their_move
+
 def beats(one, two):
     return ((one == 'rock' and two == 'scissors') or
             (one == 'scissors' and two == 'paper') or
@@ -68,5 +81,5 @@ class Game:
 
 
 if __name__ == '__main__':
-    game = Game(RandomPlayer(), HumanPlayer())
+    game = Game(ReflectPlayer(), HumanPlayer())
     game.play_game()

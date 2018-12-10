@@ -73,26 +73,43 @@ class Game:
     def play_round(self):
         move1 = self.p1.move()
         move2 = self.p2.move()
-        print(f"Player 1: {move1}  Player 2: {move2}")
+        print(f"Opponent played {move1}.\nYou played {move2}.")
         self.p1.learn(move1, move2)
         self.p2.learn(move2, move1)
+        self.displayWinnerOfRound(move1, move2)
+
+    def displayWinnerOfRound(self, move1, move2):
         p1_won_round = beats(move1, move2)
+        winner = ""
         if p1_won_round:
-            print("Player 1 won!")
+            winner = "Opponent won"
             self.p1_score += 1
         elif move1 != move2:
-            print("Player 2 won!")
+            winner = "You won"
             self.p2_score += 1
         else:
-            print("It was a tie!")
-        print(f"Player1: {self.p1_score}  Player 2: {self.p2_score}")
+            winner = "It was a tie"
+        print(f"{winner} this round!")
+
+    def displayFinalMessage(self):
+        print(f"\nFinal Score: Opponent: {self.p1_score}  You: {self.p2_score}")
+        winner = ""
+        if self.p1_score > self.p2_score:
+            winner = "Your opponent won"
+        elif self.p2_score > self.p1_score:
+            winner = "You won"
+        else:
+            winner = "It was a tie"
+        print(f"{winner} this game!")
 
     def play_game(self):
         print("Game start!")
         for round in range(3):
             print(f"Round {round}:")
             self.play_round()
+            print()
         print("Game over!")
+        self.displayFinalMessage()
 
 
 if __name__ == '__main__':

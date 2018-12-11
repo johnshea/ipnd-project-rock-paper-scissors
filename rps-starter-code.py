@@ -96,6 +96,8 @@ class Game:
         else:
             winner = "It was a tie"
         print(f"{winner} this round!")
+        print(f"Current Score: Opponent: {self.p1_score} " +
+              f"You: {self.p2_score}")
 
     def displayFinalMessage(self):
         print(f"\nFinal Score: Opponent: {self.p1_score} " +

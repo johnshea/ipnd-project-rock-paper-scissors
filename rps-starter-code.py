@@ -113,12 +113,23 @@ class Game:
 
     def play_game(self):
         print("Game start!")
-        for round in range(3):
-            print(f"Round {round}:")
+        number_of_rounds = self.prompt_for_number_of_rounds()
+        for round in range(number_of_rounds):
+            print(f"\nRound {round}:")
             self.play_round()
             print()
         print("Game over!")
         self.displayFinalMessage()
+
+    def prompt_for_number_of_rounds(self):
+        number_of_rounds = -1
+        while number_of_rounds <= 0:
+            response = input("Number of rounds to play (1 or more): ")
+            try:
+                number_of_rounds = int(response)
+            except ValueError:
+                number_of_rounds = -1
+        return number_of_rounds
 
 
 if __name__ == '__main__':

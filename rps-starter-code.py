@@ -132,6 +132,15 @@ class Game:
         return number_of_rounds
 
 
+def select_computer_player_type():
+    all_computer_player_types = [Player, RandomPlayer, ReflectPlayer,
+                                 CyclePlayer]
+    computer_player_type = random.choice(all_computer_player_types)
+    print(f"Playing against {computer_player_type.__name__} type.")
+    return computer_player_type
+
+
 if __name__ == '__main__':
-    game = Game(CyclePlayer(), HumanPlayer())
+    computer_player_type = select_computer_player_type()
+    game = Game(computer_player_type(), HumanPlayer())
     game.play_game()
